@@ -10,6 +10,13 @@ BEGIN
         FROM
             CLIENTE C;
 END LOAD_DIM_CLIENTE;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        -- Tratamento de exceções gerais
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Erro ao carregar dados em DIM_CLIENTE: ' || SQLERRM);
+END LOAD_DIM_CLIENTE;
 /
 
 CREATE OR REPLACE PROCEDURE LOAD_DIM_PRODUTO IS
@@ -25,6 +32,13 @@ BEGIN
             STA_ATIVO
         FROM
             PRODUTO;
+END LOAD_DIM_PRODUTO;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        -- Tratamento de exceções gerais
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Erro ao carregar dados em DIM_PRODUTO: ' || SQLERRM);
 END LOAD_DIM_PRODUTO;
 /
 CREATE OR REPLACE PROCEDURE LOAD_DIM_PRODUTO IS
@@ -63,6 +77,12 @@ BEGIN
    
     COMMIT;
 END LOAD_DIM_TEMPO;
+
+WHEN OTHERS THEN
+        -- Tratamento de exceções gerais
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Erro ao carregar dados em DIM_TEMPO: ' || SQLERRM);
+END LOAD_DIM_TEMPO;
 /
 
 /
@@ -79,6 +99,13 @@ BEGIN
         VENDEDOR;
     
     COMMIT;
+END LOAD_DIM_VENDEDOR;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        -- Tratamento de exceções gerais
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Erro ao carregar dados em DIM_VENDEDOR: ' || SQLERRM);
 END LOAD_DIM_VENDEDOR;
 /
 CREATE OR REPLACE PROCEDURE LOAD_FATO_VENDAS IS
@@ -110,6 +137,13 @@ BEGIN
         ITEM_PEDIDO IP ON P.COD_PEDIDO = IP.COD_PEDIDO;
     
     COMMIT;
+END LOAD_FATO_VENDAS;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        -- Tratamento de exceções gerais
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Erro ao carregar dados em FATO_VENDAS: ' || SQLERRM);
 END LOAD_FATO_VENDAS;
 /
 
